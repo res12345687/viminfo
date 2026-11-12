@@ -1,0 +1,32 @@
+{
+  "pages": [
+    { "slug": "about", "title": "About", "file": "pages/about.html" },
+    { "slug": "blog", "title": "Blog", "file": "pages/blog.html" }
+  ],
+  "posts": [
+    {
+      "slug": "ai-adoption-where-to-start",
+      "title": "AI Adoption for Indian Businesses: Where to Start",
+      "file": "posts/ai-adoption-where-to-start.html",
+      "excerpt": "How to choose your first AI use case, run a pilot that proves value, and scale what works without wasting money.",
+      "category": "AI Adoption",
+      "date": "2026-11-12 09:00:00"
+    },
+    {
+      "slug": "cloud-migration-checklist-smes",
+      "title": "A Cloud Migration Checklist for Growing Businesses",
+      "file": "posts/cloud-migration-checklist-smes.html",
+      "excerpt": "Seven steps to move to the cloud without surprise bills, broken integrations or confused staff.",
+      "category": "Cloud & IT Modernization",
+      "date": "2026-11-11 09:00:00"
+    },
+    {
+      "slug": "five-workflows-to-automate-first",
+      "title": "5 Workflows Every Organization Should Automate First",
+      "file": "posts/five-workflows-to-automate-first.html",
+      "excerpt": "Invoices, onboarding, leads, reports and approvals: where automation pays back fastest, and how to pick your first one.",
+      "category": "Process Automation",
+      "date": "2026-11-10 09:00:00"
+    }
+  ]
+}

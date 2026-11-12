@@ -2,15 +2,26 @@
 
 Content for viminfo.in, a digital transformation consultancy in Delhi NCR.
 
-## About page
+## Layout
 
-`about/about-page.html` contains the About page in WordPress block format.
+| Path | What it is |
+|---|---|
+| `content/manifest.json` | List of pages and blog posts to publish (slug, title, file, excerpt, category, date) |
+| `content/pages/` | Page content in WordPress block format (`about.html`, `blog.html`) |
+| `content/posts/` | Blog posts in WordPress block format |
+| `deploy/publish.php` | Creates or updates every item in the manifest, matched by slug |
+
+## Adding a blog post
+
+1. Add an HTML file to `content/posts/` (WordPress block markup).
+2. Add an entry for it under `posts` in `content/manifest.json`.
+3. Push to `main`. The post goes live automatically.
 
 ## Auto-deploy
 
-Every push to `main` runs `.github/workflows/deploy.yml`. It connects to the server over SSH and creates or updates the WordPress page at `/about` using `deploy/update-about.php`.
+Every push to `main` runs `.github/workflows/deploy.yml`, which uploads `content/` to the server over SSH and runs `deploy/publish.php` against the WordPress install.
 
-The workflow needs these repository secrets (Settings → Secrets and variables → Actions):
+Repository secrets (Settings → Secrets and variables → Actions):
 
 | Secret | Value |
 |---|---|
@@ -19,7 +30,3 @@ The workflow needs these repository secrets (Settings → Secrets and variables 
 | `SSH_PASSWORD` | SSH password |
 | `SSH_PORT` | optional, defaults to 22 |
 | `WP_PATH` | optional, WordPress folder (auto-detected if omitted) |
-
-## Manual publish
-
-To publish it by hand, open **Pages → About** in WordPress, switch the editor to **Code editor** (⋮ menu → Code editor), paste the file's contents and click **Update**.

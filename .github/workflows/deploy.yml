@@ -11,18 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Upload page content to server
+      - name: Upload content to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT || 22 }}
-          source: "about/about-page.html,deploy/update-about.php"
+          source: "content,deploy/publish.php"
           target: "~/viminfo-deploy"
-          strip_components: 1
 
-      - name: Publish About page in WordPress
+      - name: Publish pages and posts in WordPress
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -41,4 +40,4 @@ jobs:
               echo "WordPress not found. Add a WP_PATH secret with the site folder."; exit 1
             fi
             echo "WordPress at: $WP_PATH"
-            php ~/viminfo-deploy/update-about.php "$WP_PATH" ~/viminfo-deploy/about-page.html
+            php ~/viminfo-deploy/deploy/publish.php "$WP_PATH" ~/viminfo-deploy/content
