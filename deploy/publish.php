@@ -34,6 +34,12 @@ $author_id = $admins ? $admins[0]->ID : 0;
 
 $failed = false;
 
+require_once ABSPATH . 'wp-admin/includes/plugin.php';
+if (file_exists(WP_PLUGIN_DIR . '/viminfo-brand/viminfo-brand.php') && !is_plugin_active('viminfo-brand/viminfo-brand.php')) {
+    $r = activate_plugin('viminfo-brand/viminfo-brand.php');
+    echo is_wp_error($r) ? 'Brand plugin activation failed: ' . $r->get_error_message() . "\n" : "Activated brand plugin\n";
+}
+
 if (!empty($manifest['site']['name']) && get_option('blogname') !== $manifest['site']['name']) {
     update_option('blogname', $manifest['site']['name']);
     echo "Site title set to: {$manifest['site']['name']}\n";

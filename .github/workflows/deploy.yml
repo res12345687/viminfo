@@ -18,7 +18,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT || 22 }}
-          source: "content,deploy/publish.php,mu-plugins"
+          source: "content,deploy/publish.php,plugins"
           target: "~/viminfo-deploy"
 
       - name: Publish pages and posts in WordPress
@@ -40,7 +40,6 @@ jobs:
               echo "WordPress not found. Add a WP_PATH secret with the site folder."; exit 1
             fi
             echo "WordPress at: $WP_PATH"
-            mkdir -p "$WP_PATH/wp-content/mu-plugins"
-            cp ~/viminfo-deploy/mu-plugins/*.php "$WP_PATH/wp-content/mu-plugins/"
-            echo "Installed mu-plugins: $(ls ~/viminfo-deploy/mu-plugins)"
+            mkdir -p "$WP_PATH/wp-content/plugins/viminfo-brand"
+            cp ~/viminfo-deploy/plugins/viminfo-brand.php "$WP_PATH/wp-content/plugins/viminfo-brand/viminfo-brand.php"
             php ~/viminfo-deploy/deploy/publish.php "$WP_PATH" ~/viminfo-deploy/content
