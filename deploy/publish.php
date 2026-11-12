@@ -53,6 +53,11 @@ function vim_publish(array $item, string $type, string $content_dir, int $author
     if (!empty($item['excerpt'])) {
         $data['post_excerpt'] = $item['excerpt'];
     }
+    if (!empty($item['date'])) {
+        $data['post_date'] = $item['date'];
+        $data['post_date_gmt'] = get_gmt_from_date($item['date']);
+        $data['edit_date'] = true;
+    }
 
     $existing = get_page_by_path($item['slug'], OBJECT, $type);
     if ($existing) {
@@ -60,9 +65,6 @@ function vim_publish(array $item, string $type, string $content_dir, int $author
         $result = wp_update_post($data, true);
         $action = 'Updated';
     } else {
-        if (!empty($item['date'])) {
-            $data['post_date'] = $item['date'];
-        }
         $result = wp_insert_post($data, true);
         $action = 'Created';
     }
