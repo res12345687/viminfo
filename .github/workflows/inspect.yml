@@ -1,0 +1,32 @@
+name: Inspect site (read-only)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          source: "deploy/inspect.php"
+          target: "~/viminfo-deploy"
+      - uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            WP_PATH="${{ secrets.WP_PATH }}"
+            if [ -z "$WP_PATH" ]; then
+              for d in ~/public_html ~/domains/viminfo.in/public_html ~/htdocs ~/www ~; do
+                if [ -f "$d/wp-load.php" ]; then WP_PATH="$d"; break; fi
+              done
+            fi
+            php ~/viminfo-deploy/deploy/inspect.php "$WP_PATH"
