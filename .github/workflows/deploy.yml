@@ -1,0 +1,44 @@
+name: Deploy to viminfo.in
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Upload page content to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          source: "about/about-page.html,deploy/update-about.php"
+          target: "~/viminfo-deploy"
+          strip_components: 1
+
+      - name: Publish About page in WordPress
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            set -e
+            WP_PATH="${{ secrets.WP_PATH }}"
+            if [ -z "$WP_PATH" ]; then
+              for d in ~/public_html ~/domains/viminfo.in/public_html ~/htdocs ~/www ~; do
+                if [ -f "$d/wp-load.php" ]; then WP_PATH="$d"; break; fi
+              done
+            fi
+            if [ -z "$WP_PATH" ]; then
+              echo "WordPress not found. Add a WP_PATH secret with the site folder."; exit 1
+            fi
+            echo "WordPress at: $WP_PATH"
+            php ~/viminfo-deploy/update-about.php "$WP_PATH" ~/viminfo-deploy/about-page.html
