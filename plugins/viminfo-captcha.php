@@ -80,6 +80,14 @@ function viminfo_captcha_is_login_form_post(): bool
 
 const VIMINFO_CAPTCHA_ERROR = '<strong>Error:</strong> Please answer the security question correctly.';
 
+// Keep wp-login.php out of page caches so every visitor gets a fresh challenge.
+add_action('login_init', function () {
+    if (!defined('DONOTCACHEPAGE')) {
+        define('DONOTCACHEPAGE', true);
+    }
+    nocache_headers();
+});
+
 // Login.
 add_action('login_form', function () {
     viminfo_captcha_field('login');
@@ -117,8 +125,45 @@ add_action('lostpassword_post', function ($errors) {
 
 // Comments from visitors who aren't logged in.
 add_action('comment_form_after_fields', function () {
-    viminfo_captcha_field('comment');
+    $url = esc_url(admin_url('admin-ajax.php?action=vi_captcha'));
+    ?>
+    <p class="vi-captcha" id="vi-captcha-comment-wrap">
+        <label for="vi-captcha-comment"><span id="vi-captcha-q">Security check: loading…</span> <span class="required" aria-hidden="true">*</span></label>
+        <input type="text" name="vi_captcha_answer" id="vi-captcha-comment" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" required>
+        <input type="hidden" name="vi_captcha_token" id="vi-captcha-token" value="">
+        <span class="vi-captcha-hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="vi_captcha_website" value="" tabindex="-1" autocomplete="off"></label></span>
+        <noscript><br>Please enable JavaScript to post a comment.</noscript>
+    </p>
+    <style>.vi-captcha-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}#vi-captcha-comment{max-width:120px}</style>
+    <script>
+    (function(){
+      fetch('<?php echo $url; ?>&_=' + Date.now(), {credentials:'same-origin', cache:'no-store'})
+        .then(function(r){return r.json();})
+        .then(function(d){
+          if(!d || !d.success){return;}
+          document.getElementById('vi-captcha-q').textContent = d.data.question;
+          document.getElementById('vi-captcha-token').value = d.data.token;
+        });
+    })();
+    </script>
+    <?php
 });
+
+/** Fresh challenge as JSON, for forms on cached pages. */
+function viminfo_captcha_ajax(): void
+{
+    nocache_headers();
+    $a = random_int(1, 9);
+    $b = random_int(1, 9);
+    $ts = time();
+    $nonce = wp_generate_password(16, false);
+    wp_send_json_success([
+        'question' => sprintf('Security check: what is %d + %d?', $a, $b),
+        'token'    => $ts . '|' . $nonce . '|' . viminfo_captcha_sign($a + $b, $ts, $nonce),
+    ]);
+}
+add_action('wp_ajax_vi_captcha', 'viminfo_captcha_ajax');
+add_action('wp_ajax_nopriv_vi_captcha', 'viminfo_captcha_ajax');
 add_filter('preprocess_comment', function ($comment) {
     if (is_user_logged_in() || is_admin() || (defined('REST_REQUEST') && REST_REQUEST)) {
         return $comment;

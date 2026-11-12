@@ -137,4 +137,16 @@ foreach ($manifest['posts'] ?? [] as $item) {
     $failed = !vim_publish($item, 'post', $content_dir, $author_id) || $failed;
 }
 
+// Purge whichever page cache the site uses, so visitors see the changes immediately.
+$purged = [];
+if (has_action('litespeed_purge_all')) { do_action('litespeed_purge_all'); $purged[] = 'LiteSpeed'; }
+if (function_exists('wp_cache_clear_cache')) { wp_cache_clear_cache(); $purged[] = 'WP Super Cache'; }
+if (function_exists('w3tc_flush_all')) { w3tc_flush_all(); $purged[] = 'W3 Total Cache'; }
+if (function_exists('rocket_clean_domain')) { rocket_clean_domain(); $purged[] = 'WP Rocket'; }
+if (class_exists('\\Automattic\\Jetpack_Boost\\Lib\\Cache\\Page_Cache')) { do_action('jetpack_boost_clear_page_cache_all'); $purged[] = 'Jetpack Boost'; }
+if (function_exists('sg_cachepress_purge_cache')) { sg_cachepress_purge_cache(); $purged[] = 'SG Optimizer'; }
+wp_cache_flush();
+echo 'Cache purge: ' . ($purged ? implode(', ', $purged) : 'no page cache plugin found') . "\n";
+echo 'Active plugins: ' . implode(', ', array_map('dirname', (array) get_option('active_plugins'))) . "\n";
+
 exit($failed ? 1 : 0);
