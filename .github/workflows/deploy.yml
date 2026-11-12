@@ -40,6 +40,9 @@ jobs:
               echo "WordPress not found. Add a WP_PATH secret with the site folder."; exit 1
             fi
             echo "WordPress at: $WP_PATH"
-            mkdir -p "$WP_PATH/wp-content/plugins/viminfo-brand"
-            cp ~/viminfo-deploy/plugins/viminfo-brand.php "$WP_PATH/wp-content/plugins/viminfo-brand/viminfo-brand.php"
+            for f in ~/viminfo-deploy/plugins/*.php; do
+              name=$(basename "$f" .php)
+              mkdir -p "$WP_PATH/wp-content/plugins/$name"
+              cp "$f" "$WP_PATH/wp-content/plugins/$name/$name.php"
+            done
             php ~/viminfo-deploy/deploy/publish.php "$WP_PATH" ~/viminfo-deploy/content

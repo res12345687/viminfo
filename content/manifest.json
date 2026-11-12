@@ -2,6 +2,10 @@
   "site": {
     "name": "VimInfo and Systems"
   },
+  "plugins": [
+    "viminfo-brand",
+    "viminfo-captcha"
+  ],
   "pages": [
     {
       "slug": "about",
