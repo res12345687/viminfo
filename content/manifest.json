@@ -1,4 +1,7 @@
 {
+  "site": {
+    "name": "VimInfo and Systems"
+  },
   "pages": [
     {
       "slug": "about",

@@ -34,6 +34,11 @@ $author_id = $admins ? $admins[0]->ID : 0;
 
 $failed = false;
 
+if (!empty($manifest['site']['name']) && get_option('blogname') !== $manifest['site']['name']) {
+    update_option('blogname', $manifest['site']['name']);
+    echo "Site title set to: {$manifest['site']['name']}\n";
+}
+
 /**
  * Markup for {{CONTACT_FORM}}: the site's existing Contact Form 7 or WPForms form,
  * or nothing if neither plugin is active.
