@@ -34,6 +34,30 @@ $author_id = $admins ? $admins[0]->ID : 0;
 
 $failed = false;
 
+/**
+ * Markup for {{CONTACT_FORM}}: the site's existing Contact Form 7 or WPForms form,
+ * or nothing if neither plugin is active.
+ */
+function vim_contact_form_markup(): string
+{
+    if (defined('WPCF7_VERSION')) {
+        $forms = get_posts(['post_type' => 'wpcf7_contact_form', 'numberposts' => 1, 'orderby' => 'ID', 'order' => 'ASC']);
+        if ($forms) {
+            echo "Using Contact Form 7 form {$forms[0]->ID}\n";
+            return "<!-- wp:shortcode -->\n[contact-form-7 id=\"{$forms[0]->ID}\"]\n<!-- /wp:shortcode -->";
+        }
+    }
+    if (function_exists('wpforms')) {
+        $forms = get_posts(['post_type' => 'wpforms', 'numberposts' => 1, 'orderby' => 'ID', 'order' => 'ASC']);
+        if ($forms) {
+            echo "Using WPForms form {$forms[0]->ID}\n";
+            return "<!-- wp:shortcode -->\n[wpforms id=\"{$forms[0]->ID}\"]\n<!-- /wp:shortcode -->";
+        }
+    }
+    echo "No contact form plugin found; contact page shows phone, WhatsApp and email only\n";
+    return '';
+}
+
 function vim_publish(array $item, string $type, string $content_dir, int $author_id): bool
 {
     $file = "$content_dir/{$item['file']}";
@@ -47,7 +71,9 @@ function vim_publish(array $item, string $type, string $content_dir, int $author
         'post_status'  => 'publish',
         'post_title'   => $item['title'],
         'post_name'    => $item['slug'],
-        'post_content' => file_get_contents($file),
+        'post_content' => strpos($c = file_get_contents($file), '{{CONTACT_FORM}}') !== false
+            ? str_replace('{{CONTACT_FORM}}', vim_contact_form_markup(), $c)
+            : $c,
         'post_author'  => $author_id,
     ];
     if (!empty($item['excerpt'])) {

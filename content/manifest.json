@@ -1,7 +1,20 @@
 {
   "pages": [
-    { "slug": "about", "title": "About", "file": "pages/about.html" },
-    { "slug": "blog", "title": "Blog", "file": "pages/blog.html" }
+    {
+      "slug": "about",
+      "title": "About",
+      "file": "pages/about.html"
+    },
+    {
+      "slug": "blog",
+      "title": "Blog",
+      "file": "pages/blog.html"
+    },
+    {
+      "slug": "contact",
+      "title": "Contact",
+      "file": "pages/contact.html"
+    }
   ],
   "posts": [
     {
