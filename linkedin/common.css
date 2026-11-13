@@ -1,0 +1,5 @@
+@font-face{font-family:IDsp;src:local("Inter Display ExtraBold"),local("InterDisplay-ExtraBold");font-weight:800}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#0b1f3a;--navy2:#12294f;--teal:#16b8a6;--teal2:#0f9184;--muted:#5c6b7a;--mint:#c9f3ec}
+body{font-family:"Inter","Inter Display",sans-serif;-webkit-font-smoothing:antialiased}
+.disp{font-family:"Inter Display","Inter",sans-serif}

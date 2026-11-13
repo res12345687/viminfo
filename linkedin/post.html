@@ -1,0 +1,46 @@
+<!doctype html><html><head><link rel="stylesheet" href="common.css"><style>
+html,body{width:1200px;height:1200px;overflow:hidden}
+.bg{position:absolute;inset:0;background:linear-gradient(160deg,#0b1f3a 0%,#0e2546 50%,#12294f 72%,#0f5f5c 100%)}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.08) 1.6px,transparent 1.8px);background-size:28px 28px}
+.orb{position:absolute;border-radius:50%;filter:blur(2px)}
+.o1{width:640px;height:640px;right:-220px;top:-200px;background:radial-gradient(circle,rgba(22,184,166,.45),transparent 65%)}
+.o2{width:520px;height:520px;left:-200px;bottom:-200px;background:radial-gradient(circle,rgba(63,224,204,.25),transparent 65%)}
+.ring{position:absolute;border-radius:50%;border:2px solid rgba(22,184,166,.28)}
+.r1{width:520px;height:520px;right:-170px;top:-170px}.r2{width:380px;height:380px;right:-100px;top:-100px;border-color:rgba(255,255,255,.08)}
+.in{position:absolute;inset:80px 80px 70px}
+.brand{display:flex;align-items:center;gap:18px}
+.mark{width:76px;height:76px;border-radius:20px;background:linear-gradient(135deg,#0b1f3a,#12294f 45%,#16b8a6);box-shadow:0 10px 30px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.2);position:relative;overflow:hidden}
+.mark svg{position:absolute;inset:0}
+.bn{font-family:"Inter Display";font-weight:800;font-size:38px;color:#fff;letter-spacing:-.02em;line-height:1}
+.bn span{background:linear-gradient(90deg,#3fe0cc,#16b8a6);-webkit-background-clip:text;color:transparent}
+.bs{margin-top:6px;font-size:12px;font-weight:600;letter-spacing:.36em;color:#9fb3c8}
+.hello{margin-top:92px;font-size:28px;font-weight:600;color:#3fe0cc;letter-spacing:.02em}
+h1{margin-top:14px;font-family:"Inter Display";font-weight:800;font-size:84px;line-height:1.02;letter-spacing:-.035em;color:#fff}
+h1 em{font-style:normal;background:linear-gradient(90deg,#3fe0cc,#16b8a6);-webkit-background-clip:text;color:transparent}
+.lead{margin-top:24px;font-size:28px;line-height:1.45;color:#c7d5e3;max-width:900px}
+.cards{margin-top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{display:flex;flex-direction:column;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:28px 26px 26px;backdrop-filter:blur(4px);position:relative}
+.ic{width:58px;height:58px;border-radius:16px;background:linear-gradient(135deg,#16b8a6,#0f9184);display:grid;place-items:center;box-shadow:0 8px 20px rgba(22,184,166,.35)}
+.card h3{margin-top:20px;font-family:"Inter Display";font-weight:800;font-size:30px;color:#fff;letter-spacing:-.015em}
+.card p{margin-top:10px;font-size:20px;line-height:1.45;color:#b9c8d8;margin-bottom:0}
+.card .u{margin-top:auto;padding-top:16px;font-size:18px;font-weight:600;color:#3fe0cc}
+.foot{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;font-size:22px;color:#9fb3c8}
+.foot b{color:#fff;font-weight:600}
+.cta{background:#fff;color:#0b1f3a;font-weight:700;border-radius:999px;padding:14px 28px;font-size:21px}
+</style></head><body><div class="bg"></div><div class="dots"></div><div class="orb o1"></div><div class="orb o2"></div><div class="ring r1"></div><div class="ring r2"></div>
+<div class="in">
+ <div class="brand"><div class="mark"><svg viewBox="0 0 400 400" width="76" height="76"><path d="M108 118 L190 292 L292 96" fill="none" stroke="#fff" stroke-width="46" stroke-linecap="round" stroke-linejoin="round"/><path d="M235 114 L300 80 L310 153" fill="none" stroke="#fff" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/><circle cx="108" cy="118" r="11" fill="#16b8a6"/></svg></div>
+ <div><div class="bn">Vim<span>Info</span></div><div class="bs">AND SYSTEMS</div></div></div>
+ <div class="hello">Hello, LinkedIn</div>
+ <h1>Products that help teams<br><em>hire, operate &amp; grow.</em></h1>
+ <div class="lead">A Delhi NCR technology company building software and services for growing businesses.</div>
+ <div class="cards">
+  <div class="card"><div class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.8c1.7.8 2.7 2.5 3 5.2"/></svg></div>
+   <h3>Hiringbunch</h3><p>Job portal for job seekers and hiring teams.</p><div class="u">hiringbunch.com</div></div>
+  <div class="card"><div class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4.5 4.5 0 0 1-.6-9 6 6 0 0 1 11.4 1.5A3.8 3.8 0 0 1 17.5 18z"/><path d="M9.5 13.5l2 2 3.5-4"/></svg></div>
+   <h3>cloudsoftvim</h3><p>CRM, HR, payroll, accounting and projects in one cloud suite.</p><div class="u">cloudsoftvim.com</div></div>
+  <div class="card"><div class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-6M22 19H2"/><path d="M15 6l3-3 3 3M18 3v8"/></svg></div>
+   <h3>Digital transformation</h3><p>Consulting for SMEs, enterprises and PSUs.</p><div class="u">viminfo.in</div></div>
+ </div>
+ <div class="foot"><span>Follow <b>viminfo and systems</b> for product news &amp; tips</span><span class="cta">viminfo.in →</span></div>
+</div></body></html>

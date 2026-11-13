@@ -1,0 +1,14 @@
+<!doctype html><html><head><link rel="stylesheet" href="common.css"><style>
+html,body{width:400px;height:400px;overflow:hidden}
+.bg{position:absolute;inset:0;background:linear-gradient(135deg,#0b1f3a 0%,#12294f 48%,#16b8a6 100%)}
+.glow{position:absolute;width:300px;height:300px;right:-90px;bottom:-110px;border-radius:50%;background:radial-gradient(circle,rgba(22,184,166,.55),rgba(22,184,166,0) 70%)}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.10) 1.4px,transparent 1.6px);background-size:22px 22px;mask-image:linear-gradient(135deg,#000 0%,transparent 60%);-webkit-mask-image:linear-gradient(135deg,#000 0%,transparent 60%)}
+svg{position:absolute;inset:0}
+</style></head><body><div class="bg"></div><div class="dots"></div><div class="glow"></div>
+<svg viewBox="0 0 400 400" width="400" height="400">
+ <defs><linearGradient id="v" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9fbf5"/></linearGradient></defs>
+ <!-- V built from two strokes; the right arm rises as a growth arrow -->
+ <path d="M108 118 L190 292 L292 96" fill="none" stroke="url(#v)" stroke-width="46" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M235 114 L300 80 L310 153" fill="none" stroke="#ffffff" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+ <circle cx="108" cy="118" r="11" fill="#16b8a6"/>
+</svg></body></html>
